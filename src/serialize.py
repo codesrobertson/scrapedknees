@@ -1,4 +1,3 @@
-import pickle
 import csv
 
 class Serializer:
