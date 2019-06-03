@@ -1,4 +1,4 @@
-from src.hike import Hike
+from hike import Hike
 
 
 def test_create_hike():
