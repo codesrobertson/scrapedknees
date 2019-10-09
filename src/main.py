@@ -22,7 +22,4 @@ class ScrapedIndex:
             firp_hikes.append(Hike(hike_name, 0, 0, elevation, length, [], [], False))
         return firp_hikes
 
-
-
-
-print (ScrapedIndex().all_hikes())
+print(ScrapedIndex().all_hikes())
