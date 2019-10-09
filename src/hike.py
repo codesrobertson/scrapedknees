@@ -22,7 +22,7 @@ class Hike:
         self.permits = permits
         self.pets_allowed = pets_allowed
 
-    def __str__(self):
+    def __repr__(self):
         return "Hike[" + self.name + ", coordinates:(" + str(self.lat) + ", " + str(self.long) + "), " \
                + "elevation:" + str(self.elevation) + ", length:" + str(self.length ) + " miles, " \
                + "properties:" + str(self.properties) + ", permits:" + str(self.permits)\
