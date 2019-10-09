@@ -1,3 +1,4 @@
+import os
 import csv
 
 class Serializer:
@@ -18,6 +19,9 @@ class Serializer:
                 hike.pets_allowed]
 
     def serialize(self, hikes):
+        dir = os.path.dirname(self.file_path)
+        if not os.path.exists(dir):
+            os.makedirs(dir)
         with open(self.file_path, "w+") as tsv:
             tsv_writer = csv.writer(tsv, delimiter="\t")
             tsv_writer.writerow(self.get_headings())
