@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 from hike import Hike
+from serialize import Serializer
+
+HIKE_FILE_PATH = "out/hikes.tsv"
 
 class ScrapedIndex:
     def all_hikes(self):
@@ -22,4 +25,8 @@ class ScrapedIndex:
             firp_hikes.append(Hike(hike_name, 0, 0, elevation, length, [], [], False))
         return firp_hikes
 
-print(ScrapedIndex().all_hikes())
+print("Scraping index page for hikes...")
+hikes = ScrapedIndex().all_hikes()
+print(f"Writing hikes to file: '{HIKE_FILE_PATH}'")
+Serializer(HIKE_FILE_PATH).serialize(hikes)
+print("Done!")
