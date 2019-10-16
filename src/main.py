@@ -2,8 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from hike import Hike
 from serialize import Serializer
+from user_input import UserInputParser
 
 HIKE_FILE_PATH = "out/hikes.tsv"
+INVALID = "<INVALID>"
+
 
 class ScrapedIndex:
     def all_hikes(self):
@@ -25,8 +28,17 @@ class ScrapedIndex:
             firp_hikes.append(Hike(hike_name, 0, 0, elevation, length, [], [], False))
         return firp_hikes
 
+
 print("Scraping index page for hikes...")
 hikes = ScrapedIndex().all_hikes()
 print(f"Writing hikes to file: '{HIKE_FILE_PATH}'")
 Serializer(HIKE_FILE_PATH).serialize(hikes)
-print("Done!")
+
+parser = UserInputParser(INVALID)
+print("How long of a hike would you like to take?")
+hike_length = INVALID
+while hike_length == INVALID:
+    hike_length = parser.parse_number_range(input())
+    if hike_length == INVALID:
+        print("Please enter a valid hike length or range")
+print(f"You said you want a hike of length {hike_length}")
