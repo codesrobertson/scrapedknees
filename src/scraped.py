@@ -28,6 +28,12 @@ class IndividualScraped:
         index_content = BeautifulSoup(page_link_response.content, "html.parser")
         lat,long = self.get_lat_long(index_content)
         hike_name = self.get_hike_name(index_content)
+        gain, highpoint = self.get_hike_stats(index_content)
+        distance = self.get_length(index_content)
+        properties = self.get_properties(index_content)
+        permits = self.get_permits(index_content)
+        self.example_hike = Hike(hike_name, lat,long, max(gain, highpoint), distance, properties, permits, False)
+        print(self.example_hike)
 
     def get_lat_long(self,index_content):
         lat_long = index_content.find(class_="latlong")
@@ -42,7 +48,7 @@ class IndividualScraped:
         return (hike_name)
 
     def get_hike_stats(self, index_content):
-        hike_stats = index_content.find(id="hike-stats")
+        hike_stats = index_content.find_all(class_ ="hike-stat")[2]
         stats_spans = hike_stats.find_all("span")
         gain = float(stats_spans[0].text)
         high_point = float(stats_spans[1].text)
@@ -50,17 +56,27 @@ class IndividualScraped:
 
     def get_length(self, index_content):
         length_stat = index_content.find(id="distance")
-        distance = length_stat.find_all("span")
-        if distance contains "one way", "one-way", "oneway":
-            float*2
-            return float
-        else
-            return(distance)
-        end
+        distance = length_stat.find("span").text
+        distance_value = float(distance.split()[0])
+        if distance in ["one way", "one-way", "oneway"]:
+            distance_value*=2
+            return distance_value
+        else:
+            return(distance_value)
 
-    def properties(self, index_content):
+
+    def get_properties(self, index_content):
         properties_stats = index_content.find(id="hike-features")
-        properties_stats 
+        properties_features = properties_stats.find_all(class_= "feature")
+        attributes = []
+        for feature in properties_features:
+            attributes.append(feature.attrs["data-title"])
+        return(attributes)
+
+    def get_permits(self, index_content):
+        permits_stat = index_content.find(class_="alerts-and-conditions")
+        permit = permits_stat.find("a").text
+        return[permit]
 
 
 
@@ -71,3 +87,4 @@ class IndividualScraped:
 
 
 IndividualScraped("https://www.wta.org/go-hiking/hikes/thorp-mountain-lookout-via-thorp-creek")
+IndividualScraped("https://www.wta.org/go-hiking/hikes/mirror-lake-1")
