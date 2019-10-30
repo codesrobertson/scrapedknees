@@ -4,4 +4,4 @@
 `pipenv install`
 
 ## Running
-`pipenv run python3 src/main.py`
+`pipenv run main`
