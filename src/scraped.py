@@ -32,8 +32,7 @@ class IndividualScraped:
         distance = self.get_length(index_content)
         properties = self.get_properties(index_content)
         permits = self.get_permits(index_content)
-        self.example_hike = Hike(hike_name, lat,long, max(gain, highpoint), distance, properties, permits, False)
-        print(self.example_hike)
+        self.hike = Hike(hike_name, lat,long, max(gain, highpoint), distance, properties, permits, False)
 
     def get_lat_long(self,index_content):
         lat_long = index_content.find(class_="latlong")
@@ -86,5 +85,4 @@ class IndividualScraped:
 
 
 
-IndividualScraped("https://www.wta.org/go-hiking/hikes/thorp-mountain-lookout-via-thorp-creek")
-IndividualScraped("https://www.wta.org/go-hiking/hikes/mirror-lake-1")
+
