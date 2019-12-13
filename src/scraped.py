@@ -10,16 +10,8 @@ class ScrapedIndex:
         index_content = BeautifulSoup (index_response.content, "html.parser")
         div = index_content.find(id="search-result-listing")
         for hike_div in div.findChildren ("div",{"class":"search-result-item"}):
-            hike_name = hike_div.find(class_="listitem-title").find("span").text
-            highpoint_div = hike_div.find(class_="hike-highpoint hike-stat")
-            elevation = 0
-            if highpoint_div:
-                elevation = float(highpoint_div.find("span").text)
-            length_div = hike_div.find(class_="hike-length hike-stat")
-            length = 0
-            if length_div:
-                length = float(length_div.find("span").text.split()[0])
-            firp_hikes.append(Hike(hike_name, 0, 0, elevation, length, [], [], False))
+            hike_link = hike_div.find(class_="listitem-title").attrs["href"]
+            firp_hikes.append(hike_link)
         return firp_hikes
 
 class IndividualScraped:
@@ -36,6 +28,8 @@ class IndividualScraped:
 
     def get_lat_long(self,index_content):
         lat_long = index_content.find(class_="latlong")
+        if not lat_long:
+            return (0,0)
         lat_long_spans = lat_long.find_all("span")
         lat = float(lat_long_spans[0].text)
         long = float(lat_long_spans[1].text)
@@ -49,6 +43,8 @@ class IndividualScraped:
     def get_hike_stats(self, index_content):
         hike_stats = index_content.find_all(class_ ="hike-stat")[2]
         stats_spans = hike_stats.find_all("span")
+        if not stats_spans:
+            return (0,0)
         gain = float(stats_spans[0].text)
         high_point = float(stats_spans[1].text)
         return(gain, high_point)
@@ -74,6 +70,8 @@ class IndividualScraped:
 
     def get_permits(self, index_content):
         permits_stat = index_content.find(class_="alerts-and-conditions")
+        if not permits_stat.find("a"):
+            return []
         permit = permits_stat.find("a").text
         return[permit]
 
