@@ -28,6 +28,8 @@ class IndividualScraped:
 
     def get_lat_long(self,index_content):
         lat_long = index_content.find(class_="latlong")
+        if not lat_long:
+            return (0,0)
         lat_long_spans = lat_long.find_all("span")
         lat = float(lat_long_spans[0].text)
         long = float(lat_long_spans[1].text)
@@ -41,6 +43,8 @@ class IndividualScraped:
     def get_hike_stats(self, index_content):
         hike_stats = index_content.find_all(class_ ="hike-stat")[2]
         stats_spans = hike_stats.find_all("span")
+        if not stats_spans:
+            return (0,0)
         gain = float(stats_spans[0].text)
         high_point = float(stats_spans[1].text)
         return(gain, high_point)
@@ -66,6 +70,8 @@ class IndividualScraped:
 
     def get_permits(self, index_content):
         permits_stat = index_content.find(class_="alerts-and-conditions")
+        if not permits_stat.find("a"):
+            return []
         permit = permits_stat.find("a").text
         return[permit]
 
