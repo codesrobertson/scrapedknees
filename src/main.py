@@ -1,6 +1,5 @@
 from serialize import Serializer
 from scraped import IndividualScraped, ScrapedIndex
-import traceback
 
 HIKE_FILE_PATH = "out/hikes.tsv"
 
@@ -16,4 +15,3 @@ for link in ScrapedIndex().all_hikes():
 print(f"Writing hikes to file: '{HIKE_FILE_PATH}'")
 Serializer(HIKE_FILE_PATH).serialize(hikes)
 print("Done!")
-
