@@ -24,7 +24,7 @@ class IndividualScraped:
         distance = self.get_length(index_content)
         properties = self.get_properties(index_content)
         permits = self.get_permits(index_content)
-        self.hike = Hike(hike_name, lat,long, max(gain, highpoint), distance, properties, permits, False)
+        self.hike = Hike(hike_name, lat,long, max(gain, highpoint), distance, properties, permits)
 
     def get_lat_long(self,index_content):
         lat_long = index_content.find(class_="latlong")

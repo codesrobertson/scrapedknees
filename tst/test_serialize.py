@@ -6,17 +6,17 @@ MULTI_HIKE_FILE = "test_hikes_multiple.tsv"
 
 
 def test_serialize_hike():
-    hike = Hike("Nice Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"], True)
+    hike = Hike("Nice Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"])
     tsv = Serializer(SINGLE_HIKE_FILE)
     tsv.serialize([hike])
 
 
 def test_serialize_multiple_hikes():
     hikes = [
-        Hike("Nice Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"], True),
-        Hike("Cool Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"], True),
-        Hike("Chill Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"], True),
-        Hike("Decent Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"], True)
+        Hike("Nice Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"]),
+        Hike("Cool Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"]),
+        Hike("Chill Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"]),
+        Hike("Decent Trail", 100.2221, 20.00, 200, 5, ["forest", "waterfall"], ["icon"])
     ]
     tsv = Serializer(MULTI_HIKE_FILE)
     tsv.serialize(hikes)
@@ -34,7 +34,6 @@ def test_deserialize_hike():
     assert hike.length == 5
     assert hike.properties == ["forest", "waterfall"]
     assert hike.permits == ["icon"]
-    assert hike.pets_allowed
 
 
 def test_deserialize_multiple_hikes():
@@ -51,7 +50,6 @@ def test_deserialize_multiple_hikes():
         assert hike.length == 5
         assert hike.properties == ["forest", "waterfall"]
         assert hike.permits == ["icon"]
-        assert hike.pets_allowed
 
 
 test_serialize_hike()
