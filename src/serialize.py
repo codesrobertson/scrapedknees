@@ -10,7 +10,6 @@ class Serializer:
     LENGTH = "Length"
     PROPERTIES = "Properties"
     PERMITS = "Permits"
-    PETS_ALLOWED = "Pets Allowed"
 
     def __init__(self, file_path):
         self.file_path = file_path
@@ -22,8 +21,7 @@ class Serializer:
                 self.ELEVATION,
                 self.LENGTH,
                 self.PROPERTIES,
-                self.PERMITS,
-                self.PETS_ALLOWED]
+                self.PERMITS]
 
     def hike_to_row(self, hike):
         return [hike.name,
@@ -32,8 +30,7 @@ class Serializer:
                 hike.elevation,
                 hike.length,
                 ",".join(hike.properties),
-                ",".join(hike.permits),
-                hike.pets_allowed]
+                ",".join(hike.permits)]
 
     def serialize(self, hikes):
         dir = os.path.dirname(self.file_path)
@@ -53,8 +50,7 @@ class Serializer:
             float(row[self.ELEVATION]),
             float(row[self.LENGTH]),
             row[self.PROPERTIES].split(","),
-            row[self.PERMITS].split(","),
-            row[self.PETS_ALLOWED])
+            row[self.PERMITS].split(","))
 
     def deserialize(self):
         hikes = []

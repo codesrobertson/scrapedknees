@@ -1,5 +1,5 @@
-Name	Latitude	Longitude	Elevation	Length	Properties	Permits	Pets Allowed
-Nice Trail	100.2221	20.0	200	5	forest,waterfall	icon	True
-Cool Trail	100.2221	20.0	200	5	forest,waterfall	icon	True
-Chill Trail	100.2221	20.0	200	5	forest,waterfall	icon	True
-Decent Trail	100.2221	20.0	200	5	forest,waterfall	icon	True
+Name	Latitude	Longitude	Elevation	Length	Properties	Permits
+Nice Trail	100.2221	20.0	200	5	forest,waterfall	icon
+Cool Trail	100.2221	20.0	200	5	forest,waterfall	icon
+Chill Trail	100.2221	20.0	200	5	forest,waterfall	icon
+Decent Trail	100.2221	20.0	200	5	forest,waterfall	icon
