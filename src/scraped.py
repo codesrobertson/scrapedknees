@@ -54,6 +54,8 @@ class IndividualScraped:
 
     def get_length(self, index_content):
         length_stat = index_content.find(id="distance")
+        if not length_stat:
+            return 0
         distance = length_stat.find("span").text
         distance_value = float(distance.split()[0])
         if distance in ["one way", "one-way", "oneway"]:
