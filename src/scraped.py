@@ -3,16 +3,19 @@ from bs4 import BeautifulSoup
 from hike import Hike
 
 class ScrapedIndex:
-    def all_hikes(self):
+    def all_hikes(self, index_link):
         firp_hikes = []
-        index_link = "https://www.wta.org/go-outside/hikes"
         index_response = requests.get(index_link)
         index_content = BeautifulSoup (index_response.content, "html.parser")
+        next_jump_div = index_content.find(class_="next")
+        next_jump = None
+        if next_jump_div:
+            next_jump = index_content.find(class_ ="next").find("a").attrs["href"]
         div = index_content.find(id="search-result-listing")
         for hike_div in div.findChildren ("div",{"class":"search-result-item"}):
             hike_link = hike_div.find(class_="listitem-title").attrs["href"]
             firp_hikes.append(hike_link)
-        return firp_hikes
+        return firp_hikes, next_jump
 
 class IndividualScraped:
     def __init__(self, page_link):
@@ -43,7 +46,7 @@ class IndividualScraped:
     def get_hike_stats(self, index_content):
         hike_stats = index_content.find_all(class_ ="hike-stat")[2]
         stats_spans = hike_stats.find_all("span")
-        if not stats_spans:
+        if not stats_spans or len(stats_spans) < 2:
             return (0,0)
         gain = float(stats_spans[0].text)
         high_point = float(stats_spans[1].text)
@@ -51,6 +54,8 @@ class IndividualScraped:
 
     def get_length(self, index_content):
         length_stat = index_content.find(id="distance")
+        if not length_stat:
+            return 0
         distance = length_stat.find("span").text
         distance_value = float(distance.split()[0])
         if distance in ["one way", "one-way", "oneway"]:
