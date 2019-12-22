@@ -10,7 +10,7 @@ next_jump = "https://www.wta.org/go-outside/hikes"
 
 while next_jump:
     list_of_hikes, next_jump = ScrapedIndex().all_hikes(next_jump)
-    print (next_jump)
+    print ("Nagivating to next page.", next_jump)
     for link in list_of_hikes:
         hike = IndividualScraped(link).hike
         hikes.append(hike)
