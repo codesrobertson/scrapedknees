@@ -6,10 +6,14 @@ HIKE_FILE_PATH = "out/hikes.tsv"
 print("Scraping index page for hikes...")
 
 hikes = []
+next_jump = "https://www.wta.org/go-outside/hikes"
 
-for link in ScrapedIndex().all_hikes():
-    hike = IndividualScraped(link).hike
-    hikes.append(hike)
+while next_jump:
+    list_of_hikes, next_jump = ScrapedIndex().all_hikes(next_jump)
+    print (next_jump)
+    for link in list_of_hikes:
+        hike = IndividualScraped(link).hike
+        hikes.append(hike)
 
 
 print(f"Writing hikes to file: '{HIKE_FILE_PATH}'")
